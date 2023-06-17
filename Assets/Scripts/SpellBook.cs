@@ -6,7 +6,7 @@ using System;
 
 public class SpellBook : MonoBehaviour
 {
-    public static SpellBook instance;
+    private static SpellBook instance;
 
 
     public static SpellBook MyInstance
@@ -53,7 +53,7 @@ public class SpellBook : MonoBehaviour
     
     void Update()
     {
-        
+       
     }
 
     public Spell CastSpell(string spellName)

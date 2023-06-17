@@ -10,11 +10,13 @@ public class ActionButtons : MonoBehaviour,  IPointerClickHandler
     
     public Button MyButton { get; private set; }
 
-    public Image MyIcon { get => icon; set => icon = value; }
+   
 
     [SerializeField]
     private Image icon;
-   
+
+    public Image MyIcon { get => icon; set => icon = value; }
+
     void Start()
     {
         MyButton = GetComponent<Button>();
