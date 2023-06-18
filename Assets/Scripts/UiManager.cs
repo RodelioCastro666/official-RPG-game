@@ -48,16 +48,14 @@ public class UiManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
     }
 
     void Start()
     {
-        keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
+       
 
-        SetUseable(actionButtons[0], SpellBook.MyInstance.GetSpell("lightning"));
-        SetUseable(actionButtons[1], SpellBook.MyInstance.GetSpell("Frost"));
-        SetUseable(actionButtons[2], SpellBook.MyInstance.GetSpell("Fire"));
+       
 
         healthStat = targetFrame.GetComponentInChildren<Stat>();
 
@@ -116,13 +114,7 @@ public class UiManager : MonoBehaviour
         Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
     }
 
-    public void SetUseable(ActionButtons btn, IUsable useable)
-    {
-        
-        btn.MyIcon.sprite = useable.MyIcon;
-        btn.MyIcon.color = Color.white;
-        btn.MyUseable = useable;
-    }
+    
 
     public void OpenClose(CanvasGroup canvasGroup)
     {

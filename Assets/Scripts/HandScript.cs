@@ -44,4 +44,12 @@ public class HandScript : MonoBehaviour
         icon.sprite = moveable.MyIcon;
         icon.color = Color.white;
     }
+
+    public IMovable Put()
+    {
+        IMovable tmp = MyMoveable;
+        MyMoveable = null;
+        icon.color = new Color(0, 0, 0, 0);
+        return tmp;
+    }
 }
