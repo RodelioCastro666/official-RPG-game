@@ -145,11 +145,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
-        y: 594
-        width: 147
-        height: 145
+        y: 592
+        width: 144
+        height: 147
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,6 +157,27 @@ TextureImporter:
       bones: []
       spriteID: ac417291a36332342ae5e545eba1694a
       internalID: 966808012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: colored_set_1
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 593
+        width: 147
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8ade52b58dfa744831389e9355fffe
+      internalID: 189006923
       vertices: []
       indices: 
       edges: []
@@ -173,6 +194,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       colored_set_0: 966808012
+      colored_set_1: 189006923
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

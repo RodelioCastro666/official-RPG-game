@@ -21,6 +21,9 @@ public class InventoryScripts : MonoBehaviour
     }
 
     [SerializeField]
+    private BagButton[] bagButtons;
+
+    [SerializeField]
     private Item[] items;
 
     private void Awake()
@@ -30,14 +33,14 @@ public class InventoryScripts : MonoBehaviour
         bag.Use();
     }
 
-    void Start()
+    public void AddBag(Bag bag)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach(BagButton bagButton in bagButtons)
+        {
+            if (bagButton.MyBag == null)
+            {
+                bagButton.MyBag = bag;
+            }
+        }
     }
 }
