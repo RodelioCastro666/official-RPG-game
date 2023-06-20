@@ -130700,6 +130700,10 @@ PrefabInstance:
       propertyPath: bagButtons.Array.data[2]
       value: 
       objectReference: {fileID: 914706384}
+    - target: {fileID: 5779244352816334748, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
+      propertyPath: m_ConstraintCount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5779244352816334750, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

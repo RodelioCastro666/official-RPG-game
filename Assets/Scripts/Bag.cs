@@ -22,10 +22,15 @@ public class Bag : Item, IUsable
 
     public void Use()
     {
-        MyBagScript = Instantiate(bagPrefab, InventoryScripts.MyInstance.transform).GetComponent<BagScript>();
-        MyBagScript.AddSlots(slots);
+        if (InventoryScripts.MyInstance.CanAddBag)
+        {
+            MyBagScript = Instantiate(bagPrefab, InventoryScripts.MyInstance.transform).GetComponent<BagScript>();
+            MyBagScript.AddSlots(slots);
 
-        InventoryScripts.MyInstance.AddBag(this);
+            InventoryScripts.MyInstance.AddBag(this);
+        }
+
+      
     }
 
    
