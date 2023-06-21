@@ -48,6 +48,12 @@ public class InventoryScripts : MonoBehaviour
             bag.Initialized(16);
             bag.Use();
         }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Bag bag = (Bag)Instantiate(items[0]);
+            bag.Initialized(16);
+            AddItem(bag);
+        }
     }
 
     public void AddBag(Bag bag)
@@ -59,6 +65,30 @@ public class InventoryScripts : MonoBehaviour
                 bagButton.MyBag = bag;
                 bags.Add(bag);
                 break;
+            }
+        }
+    }
+
+    public void OpenClose()
+    {
+        bool closedBag = bags.Find(x => !x.MyBagScript.IsOpen);
+
+        foreach(Bag bag in bags)
+        {
+            if (bag.MyBagScript.IsOpen != closedBag)
+            {
+                bag.MyBagScript.OpenClose();
+            }
+        }
+    }
+
+    public void AddItem(Item item)
+    {
+        foreach (Bag bag in bags)
+        {
+            if (bag.MyBagScript.AddItem(item))
+            {
+                return;
             }
         }
     }

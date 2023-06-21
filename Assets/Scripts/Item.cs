@@ -13,7 +13,7 @@ public abstract class Item : ScriptableObject
 
     private SlotScript slot;
 
-    public Sprite Icon { get => icon;  }
+    public Sprite MyIcon { get => icon;  }
 
     public int StackSize { get => stackSize;  }
 

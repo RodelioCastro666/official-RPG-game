@@ -28,6 +28,7 @@ public class Bag : Item, IUsable
             MyBagScript.AddSlots(slots);
 
             InventoryScripts.MyInstance.AddBag(this);
+            
         }
 
       

@@ -74,6 +74,10 @@ public class UiManager : MonoBehaviour
         {
             OpenClose(spellBook);
         }
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            InventoryScripts.MyInstance.OpenClose();
+        }
     }
 
    
