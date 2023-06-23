@@ -22,6 +22,9 @@ public class UiManager : MonoBehaviour
         }
     }
 
+   
+    
+
     private Stat healthStat;
 
     private GameObject[] keybindButtons;
@@ -124,5 +127,13 @@ public class UiManager : MonoBehaviour
     {
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
         canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+    }
+
+    public void UpdateStackSize(IClickable clickable)
+    {
+        if (clickable.MyCount == 0)
+        {
+            clickable.MyIcon.color = new Color(0, 0, 0, 0);
+        }
     }
 }

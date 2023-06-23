@@ -38,6 +38,10 @@ public class InventoryScripts : MonoBehaviour
         Bag bag = (Bag)Instantiate(items[0]);
         bag.Initialized(16);
         bag.Use();
+
+        
+
+        
     }
 
     private void Update()
@@ -53,6 +57,11 @@ public class InventoryScripts : MonoBehaviour
             Bag bag = (Bag)Instantiate(items[0]);
             bag.Initialized(16);
             AddItem(bag);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            HealthPotion potion = (HealthPotion)Instantiate(items[1]);
+            AddItem(potion);
         }
     }
 

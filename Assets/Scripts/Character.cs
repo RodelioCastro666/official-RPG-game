@@ -65,6 +65,8 @@ public class Character : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
 
         MyAnimator = GetComponent<Animator>();
+
+        
     }
 
     

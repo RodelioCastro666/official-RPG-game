@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5779244352816334750}
   - component: {fileID: 5779244352816334751}
   - component: {fileID: 5779244352816334748}
-  - component: {fileID: 1104821677010764027}
+  - component: {fileID: -6298508943611263095}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -70,8 +70,8 @@ MonoBehaviour:
   m_CellSize: {x: 250, y: 250}
   m_Spacing: {x: -14.27, y: 0}
   m_Constraint: 1
-  m_ConstraintCount: 2
---- !u!114 &1104821677010764027
+  m_ConstraintCount: 3
+--- !u!114 &-6298508943611263095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,3 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8cbb6052a6be54cbf2177078b39336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bagButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  items:
+  - {fileID: 11400000, guid: 794de64bd2dc57247a8b42e165519512, type: 2}

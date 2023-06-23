@@ -130676,34 +130676,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1210473996}
     m_Modifications:
-    - target: {fileID: 1104821677010764027, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
+    - target: {fileID: -6298508943611263095, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
       propertyPath: items.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1104821677010764027, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
-      propertyPath: items.Array.data[0]
+    - target: {fileID: -6298508943611263095, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
+      propertyPath: items.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 794de64bd2dc57247a8b42e165519512, type: 2}
-    - target: {fileID: 1104821677010764027, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
-      propertyPath: bagButtons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1104821677010764027, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
+      objectReference: {fileID: 11400000, guid: fa4f28e9c9d174744afa9996925e0a01, type: 2}
+    - target: {fileID: -6298508943611263095, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
       propertyPath: bagButtons.Array.data[0]
       value: 
       objectReference: {fileID: 2064439022}
-    - target: {fileID: 1104821677010764027, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
+    - target: {fileID: -6298508943611263095, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
       propertyPath: bagButtons.Array.data[1]
       value: 
       objectReference: {fileID: 1307222322}
-    - target: {fileID: 1104821677010764027, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
+    - target: {fileID: -6298508943611263095, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
       propertyPath: bagButtons.Array.data[2]
       value: 
       objectReference: {fileID: 914706384}
-    - target: {fileID: 5779244352816334748, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
-      propertyPath: m_ConstraintCount
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5779244352816334750, guid: 28b7d6322bfc5444dba1176b1f1185c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
