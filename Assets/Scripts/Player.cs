@@ -44,8 +44,8 @@ public class Player : Character
 
     protected override void Start()
     {
-        
 
+        
 
 
         mana.Initialize(initMana, initMana);
@@ -53,6 +53,8 @@ public class Player : Character
        
 
         base.Start();
+
+        
     }
 
     protected override void Update()

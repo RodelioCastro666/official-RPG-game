@@ -19,7 +19,7 @@ public class BagScript : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
            SlotScript slot = Instantiate(slotPrefab, transform).GetComponent<SlotScript>();
-            slots.Add(slot);
+            MySlots.Add(slot);
         }
     }
 
@@ -45,9 +45,11 @@ public class BagScript : MonoBehaviour
         }
     }
 
+    public List<SlotScript> MySlots { get => slots;  }
+
     public bool AddItem(Item item)
     {
-        foreach(SlotScript slot in slots)
+        foreach(SlotScript slot in MySlots)
         {
             if (slot.IsEmpty)
             {

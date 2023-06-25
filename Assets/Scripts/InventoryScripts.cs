@@ -28,9 +28,31 @@ public class InventoryScripts : MonoBehaviour
     [SerializeField]
     private Item[] items;
 
+    private SlotScript fromSlot;
+
     public bool CanAddBag
     {
         get { return bags.Count < 3; }
+    }
+
+    public SlotScript FromSlot
+    {   get
+        {
+            return fromSlot;
+        }
+            
+        set 
+        {
+            fromSlot = value;
+            if (value != null)
+            {
+                fromSlot.MyIcon.color = Color.grey;
+            }
+        }
+
+
+
+
     }
 
     private void Awake()
@@ -39,9 +61,10 @@ public class InventoryScripts : MonoBehaviour
         bag.Initialized(16);
         bag.Use();
 
-        
+      
 
-        
+       
+
     }
 
     private void Update()
@@ -91,7 +114,22 @@ public class InventoryScripts : MonoBehaviour
         }
     }
 
+  
+
     public void AddItem(Item item)
+    {
+        if (item.MyStackSize  > 0)
+        {
+            if (PlaceInStack(item))
+            {
+                return;
+            }
+        }
+
+        PlaceInEmpty(item);
+    }
+
+    private void PlaceInEmpty(Item item)
     {
         foreach (Bag bag in bags)
         {
@@ -100,5 +138,21 @@ public class InventoryScripts : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private bool PlaceInStack(Item item)
+    {
+        foreach(Bag bag in bags)
+        {
+            foreach(SlotScript slots in bag.MyBagScript.MySlots)
+            {
+                if (slots.StackItem(item))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
