@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDragHandler,IDropHandler
+public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDragHandler,IDropHandler,IEndDragHandler
 {
     private ObservableStack<Item> items = new ObservableStack<Item>();
 
@@ -137,9 +137,15 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                 InventoryScripts.MyInstance.FromSlot = this;
                 Debug.Log("drag");
             }
-          
 
-            
+            else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
+            {
+                Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
+
+                AddItem(bag);
+
+            }
+
         }
         
 
@@ -156,21 +162,38 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                 InventoryScripts.MyInstance.FromSlot = this;
                 Debug.Log("drag");
             }
+            else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
+            {
+                Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
+
+                AddItem(bag);
+                bag.MyBagButton.RemoveBag();
+                HandScript.MyInstance.Drop();
+
+            }
             else if (InventoryScripts.MyInstance.FromSlot != null)
             {
-                if (PutItemBack() || Swapitems(InventoryScripts.MyInstance.FromSlot) || AddItems(InventoryScripts.MyInstance.FromSlot.items))
+                if (PutItemBack() || Mergeitems(InventoryScripts.MyInstance.FromSlot) || Swapitems(InventoryScripts.MyInstance.FromSlot) || AddItems(InventoryScripts.MyInstance.FromSlot.items))
                 {
                     HandScript.MyInstance.Drop();
                     InventoryScripts.MyInstance.FromSlot = null;
                     Debug.Log("drop");
                 }
             }
-            else
-            {
-                HandScript.MyInstance.Drop();
-            }
+            
 
         }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        PutItemBack();
+        HandScript.MyInstance.Drop();
+        InventoryScripts.MyInstance.FromSlot = null;
+        Debug.Log("ENDdrag");
+
+      
+        
     }
 
 
@@ -230,7 +253,34 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         return false;
     }
 
-   
+    private bool Mergeitems(SlotScript from)
+    {
+        if (IsEmpty)
+        {
+            return false;
+        }
+        if (from.MyItem.GetType() == MyItem.GetType() && !Isfull)
+        {
+            int free = MyItem.MyStackSize - MyCount;
+
+            for (int i = 0; i < free; i++)
+            {
+                AddItem(from.items.Pop());
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void Clear()
+    {
+        if (items.Count > 0)
+        {
+            items.Clear();
+        }
+    }
 }
 
     

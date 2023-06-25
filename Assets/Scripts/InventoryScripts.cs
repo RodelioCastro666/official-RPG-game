@@ -96,6 +96,7 @@ public class InventoryScripts : MonoBehaviour
             {
                 bagButton.MyBag = bag;
                 bags.Add(bag);
+                bag.MyBagButton = bagButton;
                 break;
             }
         }
@@ -154,5 +155,11 @@ public class InventoryScripts : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void RemoveBag(Bag bag)
+    {
+        bags.Remove(bag);
+        Destroy(bag.MyBagScript.gameObject);
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class BagButton : MonoBehaviour,  IPointerClickHandler
+public class BagButton : MonoBehaviour,  IPointerClickHandler, IDragHandler
+
 {
 
     private Bag bag;
@@ -32,11 +33,28 @@ public class BagButton : MonoBehaviour,  IPointerClickHandler
         }
      }
 
+    public void OnDrag(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            HandScript.MyInstance.TakeMoveable(MyBag);
+        }
+       
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
+       
         if (bag != null)
         {
             bag.MyBagScript.OpenClose();
         }
+    }
+
+    public void RemoveBag()
+    {
+        InventoryScripts.MyInstance.RemoveBag(MyBag);
+        MyBag.MyBagButton = null;
+        MyBag = null;
     }
 }

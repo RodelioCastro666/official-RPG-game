@@ -13,6 +13,8 @@ public class Bag : Item, IUsable
 
     public BagScript MyBagScript { get; set; }
 
+    public BagButton MyBagButton { get; set; }
+
     public int Slot { get => slots;  }
 
     public void Initialized(int slots)
