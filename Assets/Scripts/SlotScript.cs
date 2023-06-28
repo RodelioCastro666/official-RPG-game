@@ -14,11 +14,13 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     [SerializeField]
     private Text StackSize;
 
+    public BagScript MyBag { get; set; }
+
     public bool IsEmpty
     {
         get
         {
-            return items.Count == 0;
+            return MyItems.Count == 0;
         }
     }
 
@@ -28,7 +30,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         {
             if (!IsEmpty)
             {
-                return items.Peek();
+                return MyItems.Peek();
             }
             return null;
         }
@@ -61,21 +63,23 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     public int MyCount
     {
-        get { return items.Count; }
+        get { return MyItems.Count; }
     }
 
     public Text MyStackText => StackSize;
 
+    public ObservableStack<Item> MyItems { get => items; }
+
     private void Awake()
     {
-        items.OnPop += new UpdateStackEvent(UpdateSlot);
-        items.OnPush += new UpdateStackEvent(UpdateSlot);
-        items.OnClear += new UpdateStackEvent(UpdateSlot);
+        MyItems.OnPop += new UpdateStackEvent(UpdateSlot);
+        MyItems.OnPush += new UpdateStackEvent(UpdateSlot);
+        MyItems.OnClear += new UpdateStackEvent(UpdateSlot);
     }
 
     public bool AddItem(Item item)
     {
-        items.Push(item);
+        MyItems.Push(item);
         icon.sprite = item.MyIcon;
         icon.color = Color.white;
         item.MySlot = this;
@@ -97,7 +101,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     {
         if (!IsEmpty)
         {
-            items.Pop();
+            MyItems.Pop();
 
         }
     }
@@ -112,9 +116,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     public bool StackItem(Item item)
     {
-        if (!IsEmpty && item.name == MyItem.name && items.Count < MyItem.MyStackSize)
+        if (!IsEmpty && item.name == MyItem.name && MyItems.Count < MyItem.MyStackSize)
         {
-            items.Push(item);
+            MyItems.Push(item);
             item.MySlot = this;
             return true;
         }
@@ -140,9 +144,15 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
             else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
             {
+
+                
                 Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
 
-                AddItem(bag);
+                if (bag.MyBagScript != MyBag)
+                {
+                    AddItem(bag);
+                }
+                  
 
             }
 
@@ -166,14 +176,19 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
             {
                 Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
 
-                AddItem(bag);
-                bag.MyBagButton.RemoveBag();
-                HandScript.MyInstance.Drop();
+                if (bag.MyBagScript != MyBag && MyBag && InventoryScripts.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                {
+                    AddItem(bag);
+                    bag.MyBagButton.RemoveBag();
+                    HandScript.MyInstance.Drop(); 
+                }
+
+               
 
             }
             else if (InventoryScripts.MyInstance.FromSlot != null)
             {
-                if (PutItemBack() || Mergeitems(InventoryScripts.MyInstance.FromSlot) || Swapitems(InventoryScripts.MyInstance.FromSlot) || AddItems(InventoryScripts.MyInstance.FromSlot.items))
+                if (PutItemBack() || Mergeitems(InventoryScripts.MyInstance.FromSlot) || Swapitems(InventoryScripts.MyInstance.FromSlot) || AddItems(InventoryScripts.MyInstance.FromSlot.MyItems))
                 {
                     HandScript.MyInstance.Drop();
                     InventoryScripts.MyInstance.FromSlot = null;
@@ -240,11 +255,11 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         }
         if (from.MyItem.GetType() != MyItem.GetType() || from.MyCount+MyCount > MyItem.MyStackSize)
         {
-            ObservableStack<Item> tmpfrom = new ObservableStack<Item>(from.items);
+            ObservableStack<Item> tmpfrom = new ObservableStack<Item>(from.MyItems);
 
-            from.items.Clear();
-            from.AddItems(items);
-            items.Clear();
+            from.MyItems.Clear();
+            from.AddItems(MyItems);
+            MyItems.Clear();
             AddItems(tmpfrom);
 
             return true;
@@ -265,7 +280,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
             for (int i = 0; i < free; i++)
             {
-                AddItem(from.items.Pop());
+                AddItem(from.MyItems.Pop());
             }
 
             return true;
@@ -276,9 +291,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     public void Clear()
     {
-        if (items.Count > 0)
+        if (MyItems.Count > 0)
         {
-            items.Clear();
+            MyItems.Clear();
         }
     }
 }

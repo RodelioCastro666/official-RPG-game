@@ -15,7 +15,7 @@ public class Bag : Item, IUsable
 
     public BagButton MyBagButton { get; set; }
 
-    public int Slot { get => slots;  }
+    public int Slots { get => slots;  }
 
     public void Initialized(int slots)
     {

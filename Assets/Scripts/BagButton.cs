@@ -55,6 +55,13 @@ public class BagButton : MonoBehaviour,  IPointerClickHandler, IDragHandler
     {
         InventoryScripts.MyInstance.RemoveBag(MyBag);
         MyBag.MyBagButton = null;
+
+
+        foreach (Item item in MyBag.MyBagScript.GetItems())
+        {
+            InventoryScripts.MyInstance.AddItem(item);
+
+        }
         MyBag = null;
     }
 }
