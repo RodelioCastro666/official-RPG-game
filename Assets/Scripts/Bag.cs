@@ -31,7 +31,15 @@ public class Bag : Item, IUsable
             MyBagScript.AddSlots(slots);
 
             InventoryScripts.MyInstance.AddBag(this);
-            
+
+            //if (MyBagButton == null)
+            //{
+            //    InventoryScripts.MyInstance.AddBag(this);
+            //}
+            //else
+            //{
+            //    InventoryScripts.MyInstance.AddBag(this, MyBagButton);
+            //}
         }
 
       

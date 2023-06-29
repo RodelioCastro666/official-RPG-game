@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDragHandler,IDropHandler,IEndDragHandler
+public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDragHandler,IDropHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
 {
     private ObservableStack<Item> items = new ObservableStack<Item>();
 
@@ -101,7 +101,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     {
         if (!IsEmpty)
         {
-            MyItems.Pop();
+            InventoryScripts.MyInstance.OnItemCountChanged(MyItems.Pop());
 
         }
     }
@@ -132,14 +132,28 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     public void OnDrag(PointerEventData eventData)
     {
-      
-       if(eventData.button == PointerEventData.InputButton.Left)
+        if (InventoryScripts.MyInstance.FromSlot == null && !IsEmpty)
+        {
+            UiManager.MyInstance.ShowToolTip(MyItem);
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (InventoryScripts.MyInstance.FromSlot == null && !IsEmpty)
             {
-                HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
-                InventoryScripts.MyInstance.FromSlot = this;
-                Debug.Log("drag");
+                //if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
+                //{
+                //    if (MyItem is Bag)
+                //    {
+                //        InventoryScripts.MyInstance.Swapbags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                //    }
+                //}
+                
+                
+                    HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
+                    InventoryScripts.MyInstance.FromSlot = this;
+                    Debug.Log("drag");
+                
             }
 
             else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
@@ -164,13 +178,22 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     public void OnDrop(PointerEventData eventData)
     {
+        
+            UiManager.MyInstance.HideToolTip();
+        
+
+       
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (InventoryScripts.MyInstance.FromSlot == null && !IsEmpty)
             {
-                HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
-                InventoryScripts.MyInstance.FromSlot = this;
-                Debug.Log("drag");
+              
+                 HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
+                 InventoryScripts.MyInstance.FromSlot = this;
+                 Debug.Log("if drag");
+                
+               
             }
             else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
             {
@@ -180,7 +203,8 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                 {
                     AddItem(bag);
                     bag.MyBagButton.RemoveBag();
-                    HandScript.MyInstance.Drop(); 
+                    HandScript.MyInstance.Drop();
+                    Debug.Log("else drop");
                 }
 
                
@@ -203,12 +227,14 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     public void OnEndDrag(PointerEventData eventData)
     {
         PutItemBack();
-        HandScript.MyInstance.Drop();
+       // HandScript.MyInstance.Drop();
         InventoryScripts.MyInstance.FromSlot = null;
         Debug.Log("ENDdrag");
 
-      
-        
+
+        UiManager.MyInstance.HideToolTip();
+
+
     }
 
 
@@ -293,8 +319,23 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     {
         if (MyItems.Count > 0)
         {
+            InventoryScripts.MyInstance.OnItemCountChanged(MyItems.Pop());
             MyItems.Clear();
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("enter");
+       
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+       
+
+        Debug.Log("exit");
+        
     }
 }
 

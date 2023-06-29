@@ -49,9 +49,16 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     private GameObject targetFrame;
 
+    [SerializeField]
+    private GameObject toolTip;
+
+    
+    private Text toolTipText;
+
     private void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
+        toolTipText = toolTip.GetComponentInChildren<Text>();
     }
 
     void Start()
@@ -150,5 +157,17 @@ public class UiManager : MonoBehaviour
             clickable.MyStackText.color = new Color(0, 0, 0, 0);
             clickable.MyIcon.color = new Color(0, 0, 0, 0);
         }
+    }
+
+    public void ShowToolTip(IDescribable description)
+    {
+       
+        toolTip.SetActive(true);
+        toolTipText.text= description.GetDescription();
+    }
+
+    public void HideToolTip()
+    {
+        toolTip.SetActive(false);
     }
 }

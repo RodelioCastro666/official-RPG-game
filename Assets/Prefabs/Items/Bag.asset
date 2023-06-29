@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 189006923, guid: b4df87db05267284688fb35af3b271b9, type: 3}
   stackSize: 0
+  title: Bag
   bagPrefab: {fileID: 818438421769351519, guid: 49987f2e42884f3498e9f97fa0ed1f8e, type: 3}

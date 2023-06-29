@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class HandScript : MonoBehaviour
+public class HandScript : MonoBehaviour 
 {
     [SerializeField]
     private Vector3 offset;
@@ -36,7 +36,7 @@ public class HandScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        icon.transform.position = Input.mousePosition+offset;
+        icon.transform.position = Input.mousePosition + offset;
 
         DeleteItem();
     }
@@ -60,21 +60,27 @@ public class HandScript : MonoBehaviour
     {
         MyMoveable = null;
         icon.color = new Color(0, 0, 0, 0);
-        
+
     }
 
     private void DeleteItem()
     {
-        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
+        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
         {
             if (MyMoveable is Item && InventoryScripts.MyInstance.FromSlot != null)
             {
                 (MyMoveable as Item).MySlot.Clear();
+                Debug.Log("delete");
             }
+            (MyMoveable as Item).MySlot.Clear();
 
             Drop();
+
+
 
             InventoryScripts.MyInstance.FromSlot = null;
         }
     }
+
+   
 }
