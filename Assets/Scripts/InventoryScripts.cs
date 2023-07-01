@@ -90,6 +90,22 @@ public class InventoryScripts : MonoBehaviour
             HealthPotion potion = (HealthPotion)Instantiate(items[1]);
             AddItem(potion);
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Armor armor = (Armor)Instantiate(items[2]);
+            AddItem(armor);
+            Armor armor1 = (Armor)Instantiate(items[3]);
+            AddItem(armor1);
+            Armor armor2 = (Armor)Instantiate(items[4]);
+            AddItem(armor2);
+            Armor armor3 = (Armor)Instantiate(items[5]);
+            AddItem(armor3);
+            Armor armor4 = (Armor)Instantiate(items[6]);
+            AddItem(armor4);
+            Armor armor5 = (Armor)Instantiate(items[7]);
+            AddItem(armor5);
+            
+        }
     }
 
     public void AddBag(Bag bag)

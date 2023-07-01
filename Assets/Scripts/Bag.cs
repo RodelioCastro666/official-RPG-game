@@ -45,5 +45,10 @@ public class Bag : Item, IUsable
       
     }
 
-   
+    public override string GetDescription()
+    {
+        return base.GetDescription() + string.Format("\n{0} slot bag", slots); 
+    }
+
+
 }

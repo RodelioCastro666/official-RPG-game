@@ -20,4 +20,9 @@ public class HealthPotion :Item, IUsable
 
         
     }
+
+    public override string GetDescription()
+    {
+        return base.GetDescription() + string.Format("\n Use: Restores {0} health", health);
+    }
 }

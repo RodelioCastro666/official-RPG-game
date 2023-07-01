@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a405a0ae1c64a964dbd28e5b27ef9668, type: 3}
-  m_Name: Bag
+  m_Script: {fileID: 11500000, guid: e8bfd137251350e48a098ea52d56c051, type: 3}
+  m_Name: Gloves
   m_EditorClassIdentifier: 
-  icon: {fileID: 189006923, guid: b4df87db05267284688fb35af3b271b9, type: 3}
+  icon: {fileID: -464508367, guid: 38f0a637c60659644bb132b612736248, type: 3}
   stackSize: 0
-  title: Bag
-  quality: 1
-  bagPrefab: {fileID: 818438421769351519, guid: 49987f2e42884f3498e9f97fa0ed1f8e, type: 3}
+  title: WTF Gloves
+  quality: 3
+  armorType: 0
+  intellect: 10
+  Strength: 10
+  stamina: 10

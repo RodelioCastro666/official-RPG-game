@@ -227,7 +227,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     public void OnEndDrag(PointerEventData eventData)
     {
         PutItemBack();
-       // HandScript.MyInstance.Drop();
+       //HandScript.MyInstance.Drop();
         InventoryScripts.MyInstance.FromSlot = null;
         Debug.Log("ENDdrag");
 

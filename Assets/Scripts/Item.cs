@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public abstract class Item : ScriptableObject, IMovable ,IDescribable
 {
 
@@ -16,15 +18,19 @@ public abstract class Item : ScriptableObject, IMovable ,IDescribable
 
     private SlotScript slot;
 
+    [SerializeField]
+    private Quality quality;
+
     public Sprite MyIcon { get => icon;  }
 
     public int MyStackSize { get => stackSize;  }
 
     public SlotScript MySlot { get => slot; set => slot = value; }
 
-    public string GetDescription()
+    public virtual string GetDescription()
     {
-        return title;
+       
+        return string.Format("<color={0}>{1}</color>", QualityColor.MyColors[quality],title);
     }
 
     public void Remove()
