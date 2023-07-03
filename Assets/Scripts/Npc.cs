@@ -45,4 +45,9 @@ public class Npc : Character
 
         Destroy(gameObject);
     }
+
+    public virtual void Interact()
+    {
+        Debug.Log("abcdefghijklmnopqrstuvwxyz");
+    }
 }

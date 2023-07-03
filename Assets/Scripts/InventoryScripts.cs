@@ -143,29 +143,30 @@ public class InventoryScripts : MonoBehaviour
         }
     }
 
-    public void AddItem(Item item)
+    public bool AddItem(Item item)
     {
         if (item.MyStackSize  > 0)
         {
             if (PlaceInStack(item))
             {
-                return;
+                return true;
             }
         }
 
-        PlaceInEmpty(item);
+       return PlaceInEmpty(item);
     }
 
-    private void PlaceInEmpty(Item item)
+    private bool PlaceInEmpty(Item item)
     {
         foreach (Bag bag in bags)
         {
             if (bag.MyBagScript.AddItem(item))
             {
                 OnItemCountChanged(item);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     private bool PlaceInStack(Item item)
