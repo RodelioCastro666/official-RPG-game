@@ -11,6 +11,9 @@ public class Enemy : Npc
     [SerializeField]
     private float initAggroRange;
 
+    [SerializeField]
+    private LootTable lootTable;
+
     public Vector3 MyStartPosition { get; set; }
 
     public float MyAggroRange { get; set;  }
@@ -118,7 +121,7 @@ public class Enemy : Npc
     {
         if (!IsAlive)
         {
-            Debug.Log("Looting Enemy");
+            lootTable.ShowLoot();
         }
 
     }
