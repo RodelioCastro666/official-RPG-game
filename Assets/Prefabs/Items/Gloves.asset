@@ -16,7 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: WTF Gloves
   quality: 3
-  armorType: 0
+  armorType: 3
   intellect: 10
   Strength: 10
   stamina: 10

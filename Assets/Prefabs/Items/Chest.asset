@@ -16,7 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: WTF Chest
   quality: 0
-  armorType: 0
+  armorType: 2
   intellect: 10
   Strength: 10
   stamina: 10

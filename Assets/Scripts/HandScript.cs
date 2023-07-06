@@ -38,7 +38,12 @@ public class HandScript : MonoBehaviour
     {
         icon.transform.position = Input.mousePosition + offset;
 
-        DeleteItem();
+        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
+        {
+            DeleteItem();
+        }
+
+       
     }
 
     public void TakeMoveable(IMovable moveable)
@@ -60,26 +65,34 @@ public class HandScript : MonoBehaviour
     {
         MyMoveable = null;
         icon.color = new Color(0, 0, 0, 0);
+        InventoryScripts.MyInstance.FromSlot = null;
 
     }
 
-    private void DeleteItem()
+    public void DeleteItem()
     {
-        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
+        
+
+        if (MyMoveable is Item && InventoryScripts.MyInstance.FromSlot != null)
         {
-            if (MyMoveable is Item && InventoryScripts.MyInstance.FromSlot != null)
-            {
-                (MyMoveable as Item).MySlot.Clear();
-                Debug.Log("delete");
-            }
             (MyMoveable as Item).MySlot.Clear();
-
+            Debug.Log("delete");
             Drop();
-
-
-
-            InventoryScripts.MyInstance.FromSlot = null;
         }
+        else if (MyMoveable is Item)
+        {
+            (MyMoveable as Item).MySlot.Clear();
+            Drop();
+        }
+       
+
+       
+
+
+
+
+
+        InventoryScripts.MyInstance.FromSlot = null;
     }
 
    

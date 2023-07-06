@@ -16,7 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: WTF Helmet
   quality: 2
-  armorType: 0
+  armorType: 4
   intellect: 10
   Strength: 10
   stamina: 10

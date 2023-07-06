@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum ArmorType { Helmet, Shoulders, Chest, Gloves, Feet, Mainland, Offhand, Twohand}
+enum ArmorType { Helmet, Shoulders, Chest, Gloves, Boots, Sword, Orb, Necklace, Ring, Belt}
 
 [CreateAssetMenu(fileName = "Armor", menuName = "Items/Armor", order = 2)]
 
@@ -20,8 +20,8 @@ public class Armor : Item
     [SerializeField]
     private int stamina;
 
+    internal ArmorType MyArmorType { get => armorType; set => armorType = value; }
 
-  
     public override string GetDescription()
     {
         string stats = string.Empty;
@@ -40,5 +40,10 @@ public class Armor : Item
         }
        
         return base.GetDescription() + stats;
+    }
+
+    public void Equip()
+    {
+        CharacterPanel.MyInstance.EquipArmor(this);
     }
 }

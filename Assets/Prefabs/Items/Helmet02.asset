@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8bfd137251350e48a098ea52d56c051, type: 3}
-  m_Name: Necklace
+  m_Name: Helmet02
   m_EditorClassIdentifier: 
-  icon: {fileID: 970730566, guid: 38f0a637c60659644bb132b612736248, type: 3}
+  icon: {fileID: -1337876131, guid: 38f0a637c60659644bb132b612736248, type: 3}
   stackSize: 0
-  title: WTF Necklace
-  quality: 3
-  armorType: 7
-  intellect: 10
-  Strength: 10
-  stamina: 10
+  title: NIgga Helmet
+  quality: 2
+  armorType: 0
+  intellect: 100
+  Strength: 100
+  stamina: 100

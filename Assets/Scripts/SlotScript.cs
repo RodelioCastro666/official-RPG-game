@@ -112,6 +112,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         {
             (MyItem as IUsable).Use();
         }
+        else if (MyItem is Armor)
+        {
+            (MyItem as Armor).Equip();
+        }
     }
 
     public bool StackItem(Item item)
@@ -169,6 +173,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                   
 
             }
+            
 
         }
         
@@ -192,8 +197,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                  HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
                  InventoryScripts.MyInstance.FromSlot = this;
                  Debug.Log("if drag");
+
                 
-               
+
             }
             else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
             {
@@ -207,7 +213,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                     Debug.Log("else drop");
                 }
 
-               
+                
 
             }
             else if (InventoryScripts.MyInstance.FromSlot != null)
@@ -218,16 +224,22 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                     InventoryScripts.MyInstance.FromSlot = null;
                     Debug.Log("drop");
                 }
+                
             }
             
 
         }
+
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        
+        
+
         PutItemBack();
-       //HandScript.MyInstance.Drop();
+       // HandScript.MyInstance.Drop();
         InventoryScripts.MyInstance.FromSlot = null;
         Debug.Log("ENDdrag");
 

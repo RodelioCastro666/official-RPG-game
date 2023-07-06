@@ -52,7 +52,9 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     private GameObject toolTip;
 
-    
+    [SerializeField]
+    private CharacterPanel charPanel;
+
     private Text toolTipText;
 
     private void Awake()
@@ -88,6 +90,11 @@ public class UiManager : MonoBehaviour
         {
             InventoryScripts.MyInstance.OpenClose();
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            charPanel.OpenClose();
+        }
+
     }
 
    
@@ -169,5 +176,10 @@ public class UiManager : MonoBehaviour
     public void HideToolTip()
     {
         toolTip.SetActive(false);
+    }
+
+    public void RefreshToolTip(IDescribable description)
+    {
+        toolTipText.text = description.GetDescription();
     }
 }
