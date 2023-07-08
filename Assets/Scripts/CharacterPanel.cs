@@ -11,6 +11,8 @@ public class CharacterPanel : MonoBehaviour
     [SerializeField]
     private CharButton helmet, chest, necklace, ring, boots, belt,sword,orb;
 
+    public CharButton MySelectedButton { get; set; }
+
     private static CharacterPanel instance;
 
     public static CharacterPanel MyInstance 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CharButton : MonoBehaviour, IPointerClickHandler
+public class CharButton : MonoBehaviour,  IDragHandler, IDropHandler,IEndDragHandler
 {
     [SerializeField]
     private ArmorType armorType;
@@ -14,9 +14,68 @@ public class CharButton : MonoBehaviour, IPointerClickHandler
 
     private Armor equippedArmor;
 
-    public void OnPointerClick(PointerEventData eventData)
+    
+
+    public void EquipArmor(Armor armor)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        armor.Remove();
+
+        if (equippedArmor != null)
+        {
+            if (equippedArmor != armor)
+            {
+                armor.MySlot.AddItem(equippedArmor);
+            }
+           
+            UiManager.MyInstance.RefreshToolTip(equippedArmor);
+        }
+
+        
+        icon.enabled = true;
+        icon.sprite = armor.MyIcon;
+        icon.color = Color.white;
+        this.equippedArmor = armor;
+        HandScript.MyInstance.Drop();
+       
+
+        if (HandScript.MyInstance.MyMoveable == (armor as IMovable))
+        {
+            HandScript.MyInstance.Drop();
+        }
+    }
+
+    
+
+    public void DequipArmor()
+    {
+        icon.color = Color.white;
+        icon.enabled = false;
+        equippedArmor = null;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (equippedArmor != null)
+        {
+            UiManager.MyInstance.ShowToolTip(equippedArmor);
+        }
+
+
+        if (HandScript.MyInstance.MyMoveable == null && equippedArmor != null)
+        {
+                HandScript.MyInstance.TakeMoveable(equippedArmor);
+                CharacterPanel.MyInstance.MySelectedButton = this;
+                icon.color = Color.grey;
+                Debug.Log(" char drag ");
+        }
+        
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        UiManager.MyInstance.HideToolTip();
+
+        if (eventData.button == PointerEventData.InputButton.Left )
         {
             if (HandScript.MyInstance.MyMoveable is Armor)
             {
@@ -25,30 +84,27 @@ public class CharButton : MonoBehaviour, IPointerClickHandler
                 if (tmp.MyArmorType == armorType)
                 {
                     EquipArmor(tmp);
+                    Debug.Log("char drop");
+                    
                 }
             }
+           
         }
     }
 
-    public void EquipArmor(Armor armor)
+    private bool PutItemBack()
     {
-        armor.Remove();
-
-        if (equippedArmor != null)
+        if (CharacterPanel.MyInstance.MySelectedButton == this)
         {
-            armor.MySlot.AddItem(equippedArmor);
-            UiManager.MyInstance.RefreshToolTip(equippedArmor);
+            CharacterPanel.MyInstance.MySelectedButton.icon.color = Color.white;
+            return true;
         }
+        return false;
+    }
 
-        
-        icon.enabled = true;
-        icon.sprite = armor.MyIcon;
-        this.equippedArmor = armor;
-       
-
-        if (HandScript.MyInstance.MyMoveable == (armor as IMovable))
-        {
-            HandScript.MyInstance.Drop();
-        }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        PutItemBack();
+        HandScript.MyInstance.Drop();
     }
 }

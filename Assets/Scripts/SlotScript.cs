@@ -89,7 +89,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     public void OnPointerClick(PointerEventData eventData)
     {
          
-        if (eventData.button == PointerEventData.InputButton.Left && eventData.pointerPress != null && InventoryScripts.MyInstance.FromSlot == null)
+        if (eventData.button == PointerEventData.InputButton.Left && eventData.pointerPress != null && InventoryScripts.MyInstance.FromSlot == null && HandScript.MyInstance.MyMoveable == null)
         {
             UseItem();
             Debug.Log("click");
@@ -141,36 +141,51 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
             UiManager.MyInstance.ShowToolTip(MyItem);
         }
 
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && HandScript.MyInstance.MyMoveable == null)
         {
             if (InventoryScripts.MyInstance.FromSlot == null && !IsEmpty)
             {
-                //if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
-                //{
-                //    if (MyItem is Bag)
-                //    {
-                //        InventoryScripts.MyInstance.Swapbags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
-                //    }
-                //}
-                
-                
-                    HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
+                if (HandScript.MyInstance.MyMoveable != null )
+                {
+                    if (HandScript.MyInstance.MyMoveable is Armor)
+                    {
+                        if (MyItem is Armor &&  (MyItem as Armor).MyArmorType == (HandScript.MyInstance.MyMoveable as Armor).MyArmorType)
+                        {
+                            (MyItem as Armor).Equip();
+                            HandScript.MyInstance.Drop();
+
+                        }
+                    }
+                }
+
+
+                HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
                     InventoryScripts.MyInstance.FromSlot = this;
                     Debug.Log("drag");
                 
             }
 
-            else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
+            if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty )
             {
-
-                
-                Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
-
-                if (bag.MyBagScript != MyBag)
+                if (HandScript.MyInstance.MyMoveable is Bag)
                 {
-                    AddItem(bag);
+                    Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
+
+                    if (bag.MyBagScript != MyBag)
+                    {
+                        AddItem(bag);
+                    }
                 }
-                  
+                if (HandScript.MyInstance.MyMoveable is Armor)
+                {
+                    Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
+                    AddItem(armor);
+                    CharacterPanel.MyInstance.MySelectedButton.DequipArmor();
+                    HandScript.MyInstance.Drop();
+                }
+
+
+
 
             }
             
@@ -189,38 +204,63 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
        
 
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && HandScript.MyInstance.MyMoveable != null)
         {
             if (InventoryScripts.MyInstance.FromSlot == null && !IsEmpty)
             {
-              
-                 HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
-                 InventoryScripts.MyInstance.FromSlot = this;
-                 Debug.Log("if drag");
 
-                
-
-            }
-            else if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
-            {
-                Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
-
-                if (bag.MyBagScript != MyBag && MyBag && InventoryScripts.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                if (HandScript.MyInstance.MyMoveable != null)
                 {
-                    AddItem(bag);
-                    bag.MyBagButton.RemoveBag();
-                    HandScript.MyInstance.Drop();
-                    Debug.Log("else drop");
+                    if (HandScript.MyInstance.MyMoveable is Armor)
+                    {
+                        if (MyItem is Armor && (MyItem as Armor).MyArmorType == (HandScript.MyInstance.MyMoveable as Armor).MyArmorType)
+                        {
+                            (MyItem as Armor).Equip();
+                            HandScript.MyInstance.Drop();
+
+                        }
+                    }
                 }
 
+                HandScript.MyInstance.TakeMoveable(MyItem as IMovable);
+                 InventoryScripts.MyInstance.FromSlot = this;
+                 
+
                 
 
             }
-            else if (InventoryScripts.MyInstance.FromSlot != null)
+            if (InventoryScripts.MyInstance.FromSlot == null && IsEmpty )
+            {
+                if (HandScript.MyInstance.MyMoveable is Bag)
+                {
+                    Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
+
+                    if (bag.MyBagScript != MyBag && MyBag && InventoryScripts.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                    {
+                        AddItem(bag);
+                        bag.MyBagButton.RemoveBag();
+                       
+                        Debug.Log("else drop");
+                    }
+                }
+                if (HandScript.MyInstance.MyMoveable is Armor)
+                {
+                    Armor armor= (Armor)HandScript.MyInstance.MyMoveable;
+                    AddItem(armor);
+                    CharacterPanel.MyInstance.MySelectedButton.DequipArmor();
+                    HandScript.MyInstance.Drop();
+                }
+
+               
+
+                
+
+            }
+            if (InventoryScripts.MyInstance.FromSlot != null)
             {
                 if (PutItemBack() || Mergeitems(InventoryScripts.MyInstance.FromSlot) || Swapitems(InventoryScripts.MyInstance.FromSlot) || AddItems(InventoryScripts.MyInstance.FromSlot.MyItems))
                 {
-                    HandScript.MyInstance.Drop();
+                   // HandScript.MyInstance.Drop();
                     InventoryScripts.MyInstance.FromSlot = null;
                     Debug.Log("drop");
                 }
@@ -239,12 +279,20 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         
 
         PutItemBack();
-       // HandScript.MyInstance.Drop();
+        HandScript.MyInstance.Drop();
         InventoryScripts.MyInstance.FromSlot = null;
         Debug.Log("ENDdrag");
 
 
         UiManager.MyInstance.HideToolTip();
+
+        if (HandScript.MyInstance.MyMoveable is Armor)
+        {
+            Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
+            AddItem(armor);
+            CharacterPanel.MyInstance.MySelectedButton.DequipArmor();
+            HandScript.MyInstance.Drop();
+        }
 
 
     }

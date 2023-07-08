@@ -57,6 +57,8 @@ public class UiManager : MonoBehaviour
 
     private Text toolTipText;
 
+   
+
     private void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
@@ -168,7 +170,7 @@ public class UiManager : MonoBehaviour
 
     public void ShowToolTip(IDescribable description)
     {
-       
+        
         toolTip.SetActive(true);
         toolTipText.text= description.GetDescription();
     }
