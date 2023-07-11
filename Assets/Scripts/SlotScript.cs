@@ -239,6 +239,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                     {
                         AddItem(bag);
                         bag.MyBagButton.RemoveBag();
+                        HandScript.MyInstance.Drop();
                        
                         Debug.Log("else drop");
                     }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 
 
-public class ActionButtons : MonoBehaviour,  IPointerClickHandler, IClickable
+public class ActionButtons : MonoBehaviour,  IPointerClickHandler, IClickable,IDropHandler
 {
     public IUsable MyUseable { get; set; }
     
@@ -69,13 +69,13 @@ public class ActionButtons : MonoBehaviour,  IPointerClickHandler, IClickable
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is IUsable)
-            {
-                SetUseable(HandScript.MyInstance.MyMoveable as IUsable);
-            }
-        }
+        //if (eventData.button == PointerEventData.InputButton.Left)
+        //{
+        //    if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is IUsable)
+        //    {
+        //        SetUseable(HandScript.MyInstance.MyMoveable as IUsable);
+        //    }
+        //}
     }
 
     public void SetUseable(IUsable useable)
@@ -84,13 +84,16 @@ public class ActionButtons : MonoBehaviour,  IPointerClickHandler, IClickable
         {
             useables = InventoryScripts.MyInstance.GetUsables(useable);
             count = useables.Count;
+            InventoryScripts.MyInstance.FromSlot.MyIcon.color = Color.white;
+            InventoryScripts.MyInstance.FromSlot = null;
         }
         else
         {
+            useables.Clear();
             this.MyUseable = useable;
         }
 
-       
+        count = useables.Count;
         UpodateVisual();
     }
 
@@ -102,6 +105,10 @@ public class ActionButtons : MonoBehaviour,  IPointerClickHandler, IClickable
         if(count > 1)
         {
             UiManager.MyInstance.UpdateStackSize(this);
+        }
+        else if(MyUseable is Spell)
+        {
+            UiManager.MyInstance.ClearStackCount(this);
         }
 
         
@@ -122,4 +129,14 @@ public class ActionButtons : MonoBehaviour,  IPointerClickHandler, IClickable
         }
     }
 
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is IUsable)
+            {
+                SetUseable(HandScript.MyInstance.MyMoveable as IUsable);
+            }
+        }
+    }
 }

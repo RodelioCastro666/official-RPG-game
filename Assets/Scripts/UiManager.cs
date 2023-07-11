@@ -168,6 +168,12 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    public void ClearStackCount(IClickable clickable)
+    {
+        clickable.MyStackText.color = new Color(0, 0, 0, 0);
+        clickable.MyIcon.color = Color.white;
+    }
+
     public void ShowToolTip(IDescribable description)
     {
         

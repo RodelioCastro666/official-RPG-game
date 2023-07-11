@@ -6,6 +6,7 @@ using UnityEngine;
 public class Bag : Item, IUsable
 {
 
+    [SerializeField]
     private int slots;
 
     [SerializeField]
